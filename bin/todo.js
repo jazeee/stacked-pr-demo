@@ -5,7 +5,8 @@ import { createTodo, findTodo } from '../src/todo.js';
 const USAGE = `Usage:
   todo add <title>
   todo list
-  todo done <id>`;
+  todo done <id>
+  todo rm <id>`;
 
 function formatTodo(todo) {
   return `${todo.done ? '[x]' : '[ ]'} #${todo.id} ${todo.title}`;
@@ -36,7 +37,14 @@ function done(args) {
   console.log(`Completed #${todo.id}: ${todo.title}`);
 }
 
-const commands = { add, list, done };
+function rm(args) {
+  const todos = readTodos();
+  const todo = findTodo(todos, Number(args[0]));
+  writeTodos(todos.filter((candidate) => candidate.id !== todo.id));
+  console.log(`Removed #${todo.id}: ${todo.title}`);
+}
+
+const commands = { add, list, done, rm };
 
 const [command, ...args] = process.argv.slice(2);
 const handler = commands[command];
