@@ -21,7 +21,7 @@ node bin/todo.js rm 1
 
 ## Configuration
 
-Settings live in `.todorc.json` and are validated on read and write.
+Settings live in `.todorc.json` and are validated on read and write. Each one can be overridden for a single invocation with a `TODO_`-prefixed environment variable (`showCompleted` → `TODO_SHOW_COMPLETED`), which takes precedence over the file.
 
 | Setting | Type | Default |
 | --- | --- | --- |
