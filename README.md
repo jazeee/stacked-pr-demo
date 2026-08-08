@@ -18,3 +18,18 @@ node bin/todo.js list
 node bin/todo.js done 1
 node bin/todo.js rm 1
 ```
+
+## Configuration
+
+Settings live in `.todorc.json` and are validated on read and write.
+
+| Setting | Type | Default |
+| --- | --- | --- |
+| `store` | string | `todos.json` |
+| `showCompleted` | boolean | `true` |
+
+```sh
+node bin/config.js                    # print all settings
+node bin/config.js showCompleted      # print one setting
+node bin/config.js showCompleted false  # set one setting
+```
