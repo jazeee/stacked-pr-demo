@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { readTodos, writeTodos } from '../src/store.js';
-import { createTodo } from '../src/todo.js';
+import { createTodo, findTodo } from '../src/todo.js';
 
 const USAGE = `Usage:
   todo add <title>
-  todo list`;
+  todo list
+  todo done <id>`;
 
 function formatTodo(todo) {
   return `${todo.done ? '[x]' : '[ ]'} #${todo.id} ${todo.title}`;
@@ -27,7 +28,15 @@ function list() {
   for (const todo of todos) console.log(formatTodo(todo));
 }
 
-const commands = { add, list };
+function done(args) {
+  const todos = readTodos();
+  const todo = findTodo(todos, Number(args[0]));
+  todo.done = true;
+  writeTodos(todos);
+  console.log(`Completed #${todo.id}: ${todo.title}`);
+}
+
+const commands = { add, list, done };
 
 const [command, ...args] = process.argv.slice(2);
 const handler = commands[command];
