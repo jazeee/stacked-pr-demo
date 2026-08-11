@@ -1,10 +1,17 @@
 #!/usr/bin/env node
-import { DEFAULTS } from '../src/config.js';
+import { DEFAULTS, describe } from '../src/config.js';
 import { configExists, configPath, initConfig, readConfig, writeConfig } from '../src/config-file.js';
 
 const argv = process.argv.slice(2);
 const asJson = argv.includes('--json');
 const [command, ...args] = argv.filter((arg) => arg !== '--json');
+if (command === 'schema') {
+  const settings = describe();
+  if (asJson) console.log(JSON.stringify(settings, null, 2));
+  else for (const s of settings) console.log(`${s.key}  ${s.type}  default=${s.default}  env=${s.env}`);
+  process.exit(0);
+}
+
 if (command === 'init') {
   try {
     const path = initConfig();

@@ -23,12 +23,15 @@ node bin/todo.js rm 1
 
 Settings live in `.todorc.json` and are validated on read and write. Each one can be overridden for a single invocation with a `TODO_`-prefixed environment variable (`showCompleted` → `TODO_SHOW_COMPLETED`), which takes precedence over the file.
 
-| Setting | Type | Default |
-| --- | --- | --- |
-| `store` | string | `todos.json` |
-| `showCompleted` | boolean | `true` |
+| Setting | Type | Default | Env override |
+| --- | --- | --- | --- |
+| `store` | string | `todos.json` | `TODO_STORE` |
+| `showCompleted` | boolean | `true` | `TODO_SHOW_COMPLETED` |
+
+Run `config schema --json` for the same table generated from the code.
 
 ```sh
+node bin/config.js schema             # list every setting with type, default, and env var
 node bin/config.js init               # write a .todorc.json from the defaults
 node bin/config.js path               # print the config file location
 node bin/config.js                    # print all settings
