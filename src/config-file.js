@@ -1,7 +1,16 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { DEFAULTS, validate, withDefaults } from './config.js';
 
-const CONFIG_PATH = new URL(/**test*/ '../.todorc.json', import.meta.url);
+export const CONFIG_PATH = new URL('../.todorc.json', import.meta.url);
+
+export function configPath() {
+  return fileURLToPath(CONFIG_PATH);
+}
+
+export function configExists() {
+  return existsSync(CONFIG_PATH);
+}
 
 function envOverrides(env) {
   const overrides = {};
