@@ -29,6 +29,8 @@ Settings live in `.todorc.json` and are validated on read and write. Each one ca
 | `showCompleted` | boolean | `true` |
 
 ```sh
+node bin/config.js init               # write a .todorc.json from the defaults
+node bin/config.js path               # print the config file location
 node bin/config.js                    # print all settings
 node bin/config.js showCompleted      # print one setting
 node bin/config.js showCompleted false  # set one setting

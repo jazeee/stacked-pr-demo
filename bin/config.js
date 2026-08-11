@@ -1,10 +1,21 @@
 #!/usr/bin/env node
 import { DEFAULTS } from '../src/config.js';
-import { configExists, configPath, readConfig, writeConfig } from '../src/config-file.js';
+import { configExists, configPath, initConfig, readConfig, writeConfig } from '../src/config-file.js';
 
 const argv = process.argv.slice(2);
 const asJson = argv.includes('--json');
 const [command, ...args] = argv.filter((arg) => arg !== '--json');
+if (command === 'init') {
+  try {
+    const path = initConfig();
+    console.log(asJson ? JSON.stringify({ path, created: true }) : `Created ${path}`);
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
 if (command === 'path') {
   const path = configPath();
   console.log(asJson ? JSON.stringify({ path, exists: configExists() }) : path);
