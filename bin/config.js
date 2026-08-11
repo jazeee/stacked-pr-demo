@@ -1,10 +1,16 @@
 #!/usr/bin/env node
 import { DEFAULTS } from '../src/config.js';
-import { readConfig, writeConfig } from '../src/config-file.js';
+import { configExists, configPath, readConfig, writeConfig } from '../src/config-file.js';
 
 const argv = process.argv.slice(2);
 const asJson = argv.includes('--json');
 const [command, ...args] = argv.filter((arg) => arg !== '--json');
+if (command === 'path') {
+  const path = configPath();
+  console.log(asJson ? JSON.stringify({ path, exists: configExists() }) : path);
+  process.exit(0);
+}
+
 const isUnset = command === 'unset';
 const [key, ...rest] = isUnset ? args : [command, ...args];
 const config = readConfig();
