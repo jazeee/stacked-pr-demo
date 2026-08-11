@@ -32,6 +32,12 @@ export function readConfig(env = process.env) {
   }
 }
 
+export function initConfig() {
+  if (configExists()) throw new Error(`Config already exists at ${configPath()}.`);
+  writeConfig({ ...DEFAULTS });
+  return configPath();
+}
+
 export function writeConfig(config) {
   validate(config);
   writeFileSync(CONFIG_PATH, `${JSON.stringify(config, null, 2)}\n`);
