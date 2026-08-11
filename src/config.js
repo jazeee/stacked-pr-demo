@@ -1,5 +1,6 @@
+// Conflict
 export const DEFAULTS = {
-  store: 'todos.json',
+  store: 'todos-222.json',
   showCompleted: true,
 };
 

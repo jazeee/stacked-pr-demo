@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { DEFAULTS, validate, withDefaults } from './config.js';
 
-const CONFIG_PATH = new URL('../.todorc.json', import.meta.url);
+const CONFIG_PATH = new URL(/**test*/ '../.todorc.json', import.meta.url);
 
 function envOverrides(env) {
   const overrides = {};
